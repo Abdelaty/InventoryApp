@@ -1,13 +1,18 @@
 package com.example.abdel.inventoryapp;
 
+
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+
 
 import com.example.abdel.inventoryapp.database.InventoryContract.InventoryEntry;
 import com.example.abdel.inventoryapp.database.InventoryDbHelper;
@@ -19,7 +24,14 @@ public class CatalogActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catalog);
-
+        Button button = (Button) findViewById(R.id.insert_button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CatalogActivity.this, EditorActivity.class);
+                startActivity(intent);
+            }
+        });
         mDbHelper = new InventoryDbHelper(this);
         displayDatabaseInfo();
     }
@@ -78,7 +90,7 @@ public class CatalogActivity extends AppCompatActivity {
         }
     }
 
-   /* private void insertProduct() {
+  /*private void insertProduct() {
 
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -103,6 +115,7 @@ public class CatalogActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_insert_dummy_data:
+              //  insertProduct();
                 displayDatabaseInfo();
                 return true;
             case R.id.action_delete_all_entries:

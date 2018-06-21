@@ -20,4 +20,5 @@
     <!-- Label for editor overflow menu option that deletes the current pet [CHAR LIMIT=20] -->
     <string name="action_delete">Delete</string>
     <string name="add_product">Add Product</string>
+    <string name="add">Add product</string>
 </resources>
