@@ -10,13 +10,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="@dimen/activity_margin" />
-    <Button
-        android:id="@+id/insert_button"
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/add"
         android:layout_alignParentBottom="true"
-android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/button_margin"
-        />
+        android:layout_alignParentRight="true"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/ic_action_add"/>
 </RelativeLayout>
