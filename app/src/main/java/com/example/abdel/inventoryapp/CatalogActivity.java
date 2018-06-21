@@ -82,8 +82,8 @@ public class CatalogActivity extends AppCompatActivity {
 
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(InventoryEntry.COLUMN_PRODUCT_NAME, "Toto");
-        values.put(InventoryEntry.COLUMN_PRODUCT_PRICE, "Terrier");
+        values.put(InventoryEntry.COLUMN_PRODUCT_NAME, "Can");
+        values.put(InventoryEntry.COLUMN_PRODUCT_PRICE, "40");
         values.put(InventoryEntry.COLUMN_PRODUCT_QUANTITY, 7);
         values.put(InventoryEntry.COLUMN_PRODUCT_SUPPLIER, "Pepsico");
         values.put(InventoryEntry.COLUMN_PRODUCT_SUPPLIER_PHONE, "01006958811");
