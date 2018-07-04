@@ -7,13 +7,28 @@
     <string name="product_supplier">Supplier</string>
     <!-- Label for overflow menu option that inserts fake pet data into the app [CHAR LIMIT=20] -->
     <string name="action_insert_dummy_data">Insert Dummy Data</string>
+    <string name="editor_activity_title_edit_product">Edit Product</string>
 
     <!-- Label for overflow menu option that deletes all pet data in the app [CHAR LIMIT=20] -->
     <string name="action_delete_all_entries">Delete All Pets</string>
+    <string name="editor_insert_product_failed">Error with saving product</string>
+    <string name="editor_insert_product_success">Product saved</string>
+    <string name="editor_update_product_failed">Error with updating product</string>
 
+    <string name="editor_update_product_success">Product updated</string>
+
+    <string name="increase_quantity">Quantity has increased</string>
+    <string name="decrease_quantity">Quantity has decreased</string>
+    <string name="buy_msg_confirm">Item has been sold</string>
+    <string name="no_product_in_stock">No available product in stock</string>
+    <string name="toast_out_of_stock">Product is out of stock!</string>
     <!-- Title for the activity to add a new pet [CHAR LIMIT=20] -->
     <string name="editor_activity_title_new_product">Add a Product</string>
+    <string name="empty_view_title_text">No Products!!!!!</string>
+    <string name="unsaved_changes_dialog">Discard your changes and quit editing?</string>
+    <string name="editor_delete_product_failed">Error with deleting product</string>
 
+    <string name="empty_view_subtitle_text">Get started by adding a product</string>
     <!-- Label for editor menu option to save pet and leave editor [CHAR LIMIT=20] -->
     <string name="action_save">Save</string>
 
@@ -21,4 +36,15 @@
     <string name="action_delete">Delete</string>
     <string name="add_product">Add Product</string>
     <string name="add">Add product</string>
+    <string name="delete">Delete</string>
+    <string name="delete_dialog_msg">Delete this product?</string>
+
+    <string name="cancel">Cancel</string>
+    <string name="name_product_error">Name Product is invalid</string>
+    <string name="discard">Discard</string>
+
+    <string name="keep_editing">Keep Editing</string>
+    <string name="editor_delete_product_successful">Product deleted</string>
+    <string name="todo">TODO</string>
+
 </resources>
