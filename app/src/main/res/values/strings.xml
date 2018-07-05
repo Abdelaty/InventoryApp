@@ -46,5 +46,18 @@
     <string name="keep_editing">Keep Editing</string>
     <string name="editor_delete_product_successful">Product deleted</string>
     <string name="todo">TODO</string>
+    <string name="supplier_phone">Supplier Phone</string>
+    <string name="phone">Phone</string>
+    <string name="supplier_name">Supplier Name</string>
+    <string name="supplier">Supplier</string>
+    <string name="_0">0</string>
+    <string name="product_quantity_a">Product Quantity</string>
+    <string name="product_price_a">Product Price</string>
+    <string name="_0_0">0.0</string>
+    <string name="product">Product</string>
+    <string name="name">Name</string>
+    <string name="reduse_the_quantity">Reduse the quantity</string>
+    <string name="increase_the_quantity">Increase the quantity</string>
+    <string name="call_the_supplier">Call the Supplier</string>
 
 </resources>

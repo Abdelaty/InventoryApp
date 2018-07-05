@@ -6,4 +6,22 @@
     <!-- Common margin value used throughout the app -->
     <dimen name="activity_margin">16dp</dimen>
     <dimen name="button_margin">60dp</dimen>
+    <dimen name="views_margin">16dp</dimen>
+    <dimen name="supplier_view_width">225dp</dimen>
+    <dimen name="left_margin_supplier_name">127dp</dimen>
+    <dimen name="top_margin_supplier_name">54dp</dimen>
+    <dimen name="call_image_left_margin">25dp</dimen>
+    <dimen name="call_image_bottom_margin">29dp</dimen>
+    <dimen name="call_image_width">48dp</dimen>
+    <dimen name="call_image_height">125dp</dimen>
+    <dimen name="product_edit_phone_width">225dp</dimen>
+    <dimen name="supplier_layout_height">261dp</dimen>
+    <dimen name="down_image_view_right_margin">89dp</dimen>
+    <dimen name="down_image_view_width">46dp</dimen>
+    <dimen name="down_image_view_height">28dp</dimen>
+    <dimen name="right_margin_up_image">38dp</dimen>
+    <dimen name="up_image_width">51dp</dimen>
+    <dimen name="edit_quantity_width">64dp</dimen>
+    <dimen name="left_margin_quantity">129dp</dimen>
+    <dimen name="edit_price_width">65dp</dimen>
 </resources>

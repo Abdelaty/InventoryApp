@@ -1,14 +1,20 @@
 package com.example.abdel.inventoryapp;
 
+import android.Manifest;
 import android.app.LoaderManager;
 import android.content.ContentValues;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.Loader;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NavUtils;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -19,11 +25,14 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import static com.example.abdel.inventoryapp.database.InventoryContract.InventoryEntry;
 
 public class EditorActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
     private static final int PRODUCT_LOADER = 0;
-
+    private static final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 1;
     /**
      * EditText field to enter the Product's name
      */
@@ -36,7 +45,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
      * EditText field to enter the Product's name
      */
     private EditText mQuantityEditText;
-
     /**
      * EditText field to enter the Product's breed
      */
@@ -54,20 +62,20 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editor);
         mCurrentProductUri = getIntent().getData();
-        ImageView orderImageView = findViewById(R.id.image_view_order);
+        ImageView callImageView = findViewById(R.id.image_view_order);
         final ImageView upImageView = findViewById(R.id.image_view_up);
         final ImageView downImageView = findViewById(R.id.image_view_down);
 
         if (mCurrentProductUri == null) {
             setTitle(R.string.editor_activity_title_new_product);
-            orderImageView.setVisibility(View.GONE);
+            callImageView.setVisibility(View.GONE);
             upImageView.setVisibility(View.GONE);
             downImageView.setVisibility(View.GONE);
             invalidateOptionsMenu();
 
         } else {
             setTitle(R.string.editor_activity_title_edit_product);
-            orderImageView.setVisibility(View.VISIBLE);
+            callImageView.setVisibility(View.VISIBLE);
             upImageView.setVisibility(View.VISIBLE);
             downImageView.setVisibility(View.VISIBLE);
             getLoaderManager().initLoader(PRODUCT_LOADER, null, this);
@@ -92,6 +100,12 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 String quantityString = mQuantityEditText.getText().toString().trim();
                 int quantity = Integer.parseInt(quantityString);
                 adjustProductQuantity(mCurrentProductUri, quantity, downImageView);
+            }
+        });
+        callImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                makePhoneCall();
             }
         });
     }
@@ -241,8 +255,45 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         } else if (TextUtils.isEmpty(nameSupplierString)) {
             Toast.makeText(this, "Name supplier invalid!", Toast.LENGTH_SHORT).show();
             return false;
+        } else if (!isValidPhone(phoneSupplierString)) {
+            Toast.makeText(this, "Phone invalid!", Toast.LENGTH_SHORT).show();
+            return false;
         } else {
             return true;
+        }
+    }
+
+    public boolean isValidPhone(String phone) {
+        String regexPhone = "\\(?\\+[0-9]{1,3}\\)? ?-?[0-9]{1,3} ?-?[0-9]{3,5} ?-?[0-9]{4}( ?-?[0-9]{3})?";
+        Pattern pattern = Pattern.compile(regexPhone);
+        Matcher matcher = pattern.matcher(phone);
+
+        return matcher.find();
+    }
+
+    private void makePhoneCall() {
+        String phoneNumber = mPhoneEditText.getText().toString().trim();
+        if (isValidPhone(phoneNumber)) {
+            if (ContextCompat.checkSelfPermission(EditorActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(EditorActivity.this, new String[]{Manifest.permission.CALL_PHONE}, MY_PERMISSIONS_REQUEST_CALL_PHONE);
+            } else {
+                startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneNumber)));
+            }
+
+        } else {
+            Toast.makeText(this, "Phone Number is invalid!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == MY_PERMISSIONS_REQUEST_CALL_PHONE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                makePhoneCall();
+            } else {
+                Toast.makeText(this, "Permission DENIED!", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -332,7 +383,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
     private void adjustProductQuantity(Uri productUri, int currentQuantityInStock, View v) {
         if (v.getId() == R.id.image_view_up) {
-            int newQuantityValue = (currentQuantityInStock >= 1) ? currentQuantityInStock + 1 : 0;
+            int newQuantityValue = (currentQuantityInStock >= 0) ? currentQuantityInStock + 1 : 0;
 
             ContentValues contentValues = new ContentValues();
             contentValues.put(InventoryEntry.COLUMN_PRODUCT_QUANTITY, newQuantityValue);
